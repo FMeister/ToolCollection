@@ -1,4 +1,35 @@
 <template>
-  <h1>${message}</h1>
-  <p>" " ${testData}</p>
+  <!-- <h1>${heading}</h1>
+
+  <form submit.trigger="addTodo()">
+    <input type="text" value.bind="todoDescription">
+    <button type="submit" disabled.bind="!todoDescription">Add Todo</button>
+  </form>
+
+  <ul>
+    <li repeat.for="todo of todos">
+      <input type="checkbox" checked.bind="todo.done">
+      <span css="text-decoration: ${todo.done ? 'line-through' : 'none'}">
+        ${todo.description}
+      </span>
+      <button click.trigger="removeTodo(todo)">Remove</button>
+    </li>
+  </ul> -->
+
+
+  <h1>${heading}</h1>
+
+  <input value.bind="inputHours" type="number" placeholder="Hours">
+  <input value.bind="inputMinutes" type="number" placeholder="Minutes">
+  <input value.bind="inputSecounds" type="number" placeholder="Secounds">
+
+  <h3 textcontent.bind="secoundsOnTimer"></h3>
+
+  <button click.trigger="startTimer()">Start Timer</button>
+  <button click.trigger="stopTimer()">Stop Timer</button>
+
+
+  <button repeat.for="preset of presetTimerList" click.trigger="startPresetTimer(preset)">${preset.displayName}</button>
+
+
 </template>
