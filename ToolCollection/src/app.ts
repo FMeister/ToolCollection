@@ -8,9 +8,9 @@ interface TimerPreset {
 }
 
 export class App {
-  public heading = "Timer";
-  public todos: Todo[] = [];
-  public todoDescription = '';
+  // public heading = "Timer";
+  // public todos: Todo[] = [];
+  // public todoDescription = '';
 
   public presetTimerList: TimerPreset[] = [
     { displayName: "Reis", duration: 7 * 60 },
@@ -20,11 +20,11 @@ export class App {
 
   public startTime = new Date();
   public currentTime = new Date();
-  public secoundsOnTimer = 0;
+  public displayedTime = "0 : 0 : 0";
 
-  public inputSecounds;
-  public inputMinutes;
-  public inputHours;
+  public inputSecounds = null;
+  public inputMinutes = null;
+  public inputHours = null;
 
   public inputTargetSecounds = 0;
   public timerIsRunning = false;
@@ -37,11 +37,13 @@ export class App {
 
     this.inputTargetSecounds = 0;
     if (this.inputHours != null)
-      this.inputTargetSecounds += this.inputHours * 3600;
+      this.inputTargetSecounds += Number(this.inputHours * 3600);
+
     if (this.inputMinutes != null)
-      this.inputTargetSecounds += this.inputMinutes * 60;
+      this.inputTargetSecounds += Number(this.inputMinutes * 60);
+
     if (this.inputSecounds != null)
-      this.inputTargetSecounds += this.inputSecounds;
+      this.inputTargetSecounds += Number(this.inputSecounds);
 
     this.updateTimer();
   }
@@ -57,12 +59,28 @@ export class App {
 
   updateTimer() {
     this.currentTime = new Date();
-    this.secoundsOnTimer = this.inputTargetSecounds - (this.currentTime.getSeconds() - this.startTime.getSeconds());
+
+    let secoundsLeft: number = this.inputTargetSecounds - (this.currentTime.getSeconds() - this.startTime.getSeconds());
+    if (secoundsLeft == 0)
+      this.stopTimer();
+
+    this.displaySecounds(secoundsLeft);
+
     if (!this.timerIsRunning) {
       return;
     } else {
       requestAnimationFrame(this.updateTimer.bind(this));
     }
+  }
+
+  displaySecounds(secounds: number) {
+
+    let hours: number = Math.floor(secounds / 3600);
+    secounds -= 3600 * hours;
+    let minutes: number = Math.floor(secounds / 60);
+    secounds -= 60 * minutes;
+
+    this.displayedTime = "" + hours + " : " + minutes + " : " + secounds;
   }
 
 }
