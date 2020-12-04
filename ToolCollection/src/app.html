@@ -16,6 +16,7 @@
     </li>
   </ul> -->
 
+  <!-- <require from="bootstrap/css/bootstrap.css"></require> -->
 
   <input value.bind="inputHours" type="number" placeholder="Hours">
   <input value.bind="inputMinutes" type="number" placeholder="Minutes">
@@ -23,8 +24,8 @@
 
   <h3 textcontent.bind="displayedTime"></h3>
 
-  <button click.trigger="startTimer()">Start Timer</button>
-  <button click.trigger="stopTimer()">Stop Timer</button>
+  <button type="button" class="btn btn-primary" click.trigger="startTimer()">Start Timer</button>
+  <button type="button" class="btn btn-primary" click.trigger="stopTimer()">Stop Timer</button>
 
 
   <button repeat.for="preset of presetTimerList" click.trigger="startPresetTimer(preset)">${preset.displayName}</button>
